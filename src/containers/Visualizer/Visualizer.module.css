@@ -1,0 +1,11 @@
+.barContainer {
+  /* position: absolute; */
+  /* left: 100px; */
+}
+
+.barValue {
+  width: 2px;
+  background-color: pink;
+  display: inline-block;
+  margin: 0 1px;
+}

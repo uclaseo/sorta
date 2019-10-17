@@ -1,6 +1,10 @@
-.barContainer {
+.visualizerContainer {
   /* position: absolute; */
   /* left: 100px; */
+}
+
+.bars {
+  
 }
 
 .barValue {

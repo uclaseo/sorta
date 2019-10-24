@@ -1,0 +1,15 @@
+.visualizerContainer {
+  /* position: absolute; */
+  /* left: 100px; */
+}
+
+.bars {
+
+}
+
+.barValue {
+  width: 10px;
+  background-color: pink;
+  display: inline-block;
+  margin: 0 1px;
+}

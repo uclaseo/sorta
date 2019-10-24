@@ -2,11 +2,10 @@ import React from 'react';
 import Bar from './Bar';
 import './BarContainer.css';
 
-function BarContainer() {
-  const dummyBars = [1, 3, 4, 4, 10, 22, 50];
+function BarContainer(props) {
   return (
     <div className="barContainer">
-      {dummyBars.map((value) => {
+      {props.numbers.map((value) => {
         return (
           <Bar key={Math.random()} value={value} />
         );

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 import { getMergeSortAnimations } from '../../helpers/mergeSort';
 import { bubbleSort } from '../../helpers/bubbleSort';
+import { selectionSort } from '../../helpers/selectionSort';
 import styles from './Visualizer.module.css';
 
+const SPEED = 2;
+const LENGTH = 100;
 
 class Visualizer extends Component {
   state = {
@@ -11,7 +14,7 @@ class Visualizer extends Component {
   }
 
   componentDidMount() {
-    this.generateRandomArray(50);
+    this.generateRandomArray(LENGTH);
   }
 
   generateRandomArray = (length) => {
@@ -34,7 +37,7 @@ class Visualizer extends Component {
   }
 
   handleNew = () => {
-    this.generateRandomArray(50);
+    this.generateRandomArray(LENGTH);
   }
 
   handleMergeSort = () => {
@@ -62,8 +65,44 @@ class Visualizer extends Component {
     // }
   }
 
-  handleSelectSort = () => {
-
+  handleSelectionSort = () => {
+    const animations = selectionSort(this.state.array, []);
+    console.log('animations', animations);
+    for (let i = 0; i < animations.length; i += 1) {
+      const bars = document.getElementsByClassName(styles.barValue);
+      const [barOneIndex, barTwoIndex, changeColor, swap, end] = animations[i];
+      const barOneStyle = bars[barOneIndex].style;
+      const barTwoStyle = bars[barTwoIndex].style;
+      if (!changeColor && !swap && !end) {
+        setTimeout(() => {
+          barOneStyle.backgroundColor = 'green';
+          barTwoStyle.backgroundColor = 'green';
+          if (barOneIndex + 1 < barTwoIndex) {
+            bars[barTwoIndex - 1].style.backgroundColor = 'white';
+          }
+        }, SPEED * i);
+      } else if (changeColor && !swap && !end) {
+        setTimeout(() => {
+          barOneStyle.backgroundColor = 'red';
+          barTwoStyle.backgroundColor = 'red';
+        }, SPEED * i);
+        setTimeout(() => {
+          barOneStyle.backgroundColor = 'white';
+          // barTwoStyle.backgroundColor = 'white';
+        }, SPEED * i + SPEED)
+      } else if (changeColor && swap && !end) {
+        setTimeout(() => {
+          const temp = barTwoStyle.height;
+          barTwoStyle.height = barOneStyle.height;
+          barOneStyle.height = temp;
+        }, SPEED * i);
+      } else if (end) {
+        setTimeout(() => {
+          barOneStyle.backgroundColor = 'red';
+          barTwoStyle.backgroundColor = 'red';
+        }, SPEED * i);
+      }
+    }
   }
 
   handleBubbleSort = () => {
@@ -80,13 +119,13 @@ class Visualizer extends Component {
           }
           barOneStyle.backgroundColor = 'green';
           barTwoStyle.backgroundColor = 'green';
-        }, 10 * i);
+        }, SPEED * i);
       } else {
         setTimeout(() => {
           const temp = barTwoStyle.height;
           barTwoStyle.height = barOneStyle.height;
           barOneStyle.height = temp;
-        }, 10 * i);
+        }, SPEED * i);
       }
     }
   }
@@ -108,8 +147,8 @@ class Visualizer extends Component {
           }
         </div>
         <button onClick={this.handleNew}>New Numbers</button>
-        <button onClick={this.handleMergeSort}>Merge</button>
-        <button onClick={this.handleSelectSort}>Select</button>
+        {/* <button onClick={this.handleMergeSort}>Merge</button> */}
+        <button onClick={this.handleSelectionSort}>Selection</button>
         <button onClick={this.handleBubbleSort}>Bubble</button>
       </div>
     );

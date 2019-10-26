@@ -5,7 +5,7 @@ import { bubbleSort } from '../../helpers/bubbleSort';
 import { selectionSort } from '../../helpers/selectionSort';
 import styles from './Visualizer.module.css';
 
-const SPEED = 2;
+const SPEED = 1000;
 const LENGTH = 100;
 
 class Visualizer extends Component {
@@ -78,6 +78,7 @@ class Visualizer extends Component {
           barOneStyle.backgroundColor = 'green';
           barTwoStyle.backgroundColor = 'green';
           if (barOneIndex + 1 < barTwoIndex) {
+            // if (barTwoIndex > 0) {
             bars[barTwoIndex - 1].style.backgroundColor = 'white';
           }
         }, SPEED * i);
@@ -86,10 +87,10 @@ class Visualizer extends Component {
           barOneStyle.backgroundColor = 'red';
           barTwoStyle.backgroundColor = 'red';
         }, SPEED * i);
-        setTimeout(() => {
-          barOneStyle.backgroundColor = 'white';
-          // barTwoStyle.backgroundColor = 'white';
-        }, SPEED * i + SPEED)
+        // setTimeout(() => {
+        //   barOneStyle.backgroundColor = 'white';
+        //   barTwoStyle.backgroundColor = 'white';
+        // }, SPEED * i + SPEED)
       } else if (changeColor && swap && !end) {
         setTimeout(() => {
           const temp = barTwoStyle.height;

@@ -5,7 +5,7 @@ import { bubbleSort } from '../../helpers/bubbleSort';
 import { selectionSort } from '../../helpers/selectionSort';
 import styles from './Visualizer.module.css';
 
-const SPEED = 1000;
+const SPEED = 2;
 const LENGTH = 100;
 
 class Visualizer extends Component {
@@ -20,7 +20,7 @@ class Visualizer extends Component {
   generateRandomArray = (length) => {
     const array = [];
     for (let i = 0; i < length; i += 1) {
-      array.push(this.generateRandomIntFromInterval(10, 100));
+      array.push(this.generateRandomIntFromInterval(10, 150));
     }
     this.setState({
       array,
@@ -77,8 +77,7 @@ class Visualizer extends Component {
         setTimeout(() => {
           barOneStyle.backgroundColor = 'green';
           barTwoStyle.backgroundColor = 'green';
-          if (barOneIndex + 1 < barTwoIndex) {
-            // if (barTwoIndex > 0) {
+          if (barTwoIndex > barOneIndex + 1) {
             bars[barTwoIndex - 1].style.backgroundColor = 'white';
           }
         }, SPEED * i);
@@ -87,10 +86,12 @@ class Visualizer extends Component {
           barOneStyle.backgroundColor = 'red';
           barTwoStyle.backgroundColor = 'red';
         }, SPEED * i);
-        // setTimeout(() => {
-        //   barOneStyle.backgroundColor = 'white';
-        //   barTwoStyle.backgroundColor = 'white';
-        // }, SPEED * i + SPEED)
+        if (barOneIndex !== barTwoIndex) {
+          setTimeout(() => {
+            barOneStyle.backgroundColor = 'white';
+            // barTwoStyle.backgroundColor = 'white';
+          }, SPEED * i + SPEED)
+        }
       } else if (changeColor && swap && !end) {
         setTimeout(() => {
           const temp = barTwoStyle.height;

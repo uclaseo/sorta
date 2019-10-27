@@ -5,8 +5,8 @@ import { bubbleSort } from '../../helpers/bubbleSort';
 import { selectionSort } from '../../helpers/selectionSort';
 import styles from './Visualizer.module.css';
 
-const SPEED = 1000;
-const LENGTH = 5;
+const SPEED = 1;
+const LENGTH = 100;
 
 class Visualizer extends Component {
   state = {
@@ -67,7 +67,6 @@ class Visualizer extends Component {
 
   handleSelectionSort = () => {
     const animations = selectionSort(this.state.array, []);
-    console.log('animations', animations);
     for (let i = 0; i < animations.length; i += 1) {
       const bars = document.getElementsByClassName(styles.barValue);
       const [barOneIndex, barTwoIndex, changeColor, swap, end] = animations[i];
@@ -109,7 +108,6 @@ class Visualizer extends Component {
 
   handleBubbleSort = () => {
     const animations = bubbleSort(this.state.array, []);
-    console.log(animations);
     for (let i = 0; i < animations.length; i += 1) {
       const bars = document.getElementsByClassName(styles.barValue);
       const [barOneIndex, barTwoIndex, swap, end] = animations[i];
